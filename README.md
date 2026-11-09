@@ -1,5 +1,7 @@
 # Cryptex
 
+中文 | [English](README.en.md)
+
 跨平台密码算法库。核心用 Rust 实现，通过 C ABI 提供给其他语言调用。目前提供隐私集合求交（PSI），维护 Python 绑定。
 
 名字出自《达·芬奇密码》中的密码筒（cryptex）。本项目取 Crypto（密码学）+ Cortex（大脑皮层）之意，寓意密码计算的中枢：所有密码计算都在这里完成，上层服务只负责调度和接入。
@@ -9,6 +11,7 @@
 | 文档 | 写给谁 | 内容 |
 | --- | --- | --- |
 | `README.md`（本文） | 所有人 | 项目概况、支持的算法、性能摘要、快速开始、构建 |
+| [README.en.md](README.en.md) | 所有人 | 本文的英文版 |
 | [docs/operators.md](docs/operators.md) | 所有人 | 一页纸的算子一览：已完成的算子、核心依据、代表性能 |
 | [bindings/python/README.md](bindings/python/README.md) | Python 使用者 | 参数、数据输入、通信接入、分桶、日志、并发、底层接口 |
 | [docs/algorithm/psi.md](docs/algorithm/psi.md) | 安全评审、协议实现者 | ECDH-PSI、VOLE-PSI 的原理、消息格式、参数、性能；三种 PSI 共用的会话、分桶、依据、安全性、接口 |
