@@ -1,0 +1,59 @@
+[package]
+name = "cryptex"
+version = "0.1.0"
+edition = "2021"
+authors = ["cryptex contributors"]
+license = "MIT OR Apache-2.0"
+description = "Cross-platform cryptographic library"
+
+[lib]
+name = "cryptex"
+crate-type = ["cdylib", "staticlib", "rlib"]
+
+[dependencies]
+# All pure Rust (no C toolchain needed for cross-compiling). Exact versions
+# by project convention.
+
+# Elliptic curves
+curve25519-dalek = { version = "=5.0.0", default-features = false, features = ["alloc", "rand_core", "zeroize"] }
+p256 = { version = "=0.14.0", default-features = false, features = ["arithmetic", "group-digest"] }
+sm2 = { version = "=0.14.0", default-features = false, features = ["arithmetic"] }
+primeorder = { version = "=0.14.0", default-features = false }
+
+# Hash-to-curve (RFC 9380) and hashes
+hash2curve = { version = "=0.14.0", default-features = false }
+sha2 = { version = "=0.11.1", default-features = false }
+sm3 = { version = "=0.5.0", default-features = false }
+
+# Block cipher for the OT-extension PRG (AES-NI / ARMv8 Crypto, detected at
+# runtime)
+aes = { version = "=0.9.4", default-features = false, features = ["zeroize"] }
+
+# CTR mode (NIST SP 800-38A) over AES / SM4, for PIR record encryption; SM4
+# keeps the SM2 suite on GB/T algorithms
+ctr = { version = "=0.10.1", default-features = false, features = ["zeroize"] }
+sm4 = { version = "=0.6.0", default-features = false, features = ["zeroize"] }
+
+# GF(2^128) multiplication for silent VOLE (constant-time, portable)
+polyval = { version = "=0.7.3", default-features = false, features = ["hazmat"] }
+
+# Randomness: ChaCha20 CSPRNG seeded from the OS
+rand = { version = "=0.10.3", default-features = false, features = ["std", "sys_rng", "chacha"] }
+
+# Constant-time modular inversion of FourQ scalars (OPRF unblinding); already
+# in the tree through elliptic-curve
+crypto-bigint = { version = "=0.7.10", default-features = false }
+
+# Constant-time selection and comparison (FourQ field arithmetic)
+subtle = { version = "=2.6.1", default-features = false, features = ["i128"] }
+
+rayon = "=1.12.0"
+zeroize = { version = "=1.9.1", default-features = false }
+
+[dev-dependencies]
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3
+strip = true
